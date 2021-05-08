@@ -3,15 +3,17 @@ package PenManager;
 import java.util.Date;
 
 public class FountainPen {
-    private String name, //Refers to model name
+    private int penID;
+    private String modelName,
             brand,
             color;
+    private double price;
     private Nib size;
     private FillingMechanism mechanism;
     private Date dateEntered;
 
-    FountainPen(String name, String brand, String color, FillingMechanism mechanism, Nib size){
-        this.name = name;
+    FountainPen(String modelName, String brand, String color, FillingMechanism mechanism, Nib size){
+        this.modelName = modelName;
         this.brand = brand;
         this.color = color;
         this.size = size;
@@ -19,8 +21,8 @@ public class FountainPen {
         this.dateEntered = new java.util.Date();
     }
     //Getter methods
-    public String getName(){
-        return name;
+    public String getModelName(){
+        return modelName;
     }
 
     public String getBrand(){
@@ -43,8 +45,8 @@ public class FountainPen {
         return mechanism;
     }
     //Setter methods
-    public void setName(String name){
-        this.name = name;
+    public void setModelName(String modelName){
+        this.modelName = modelName;
     }
 
     public void setBrand(String brand){

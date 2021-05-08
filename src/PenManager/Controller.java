@@ -16,7 +16,7 @@ public class Controller {
 
     public void viewCollection(ActionEvent click) throws IOException {
         try {
-            root = FXMLLoader.load(getClass().getResource("ViewingCollection.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/ViewingCollection.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
@@ -27,7 +27,7 @@ public class Controller {
     }
     public void modifyCollection(ActionEvent click) throws IOException{
         try {
-            root = FXMLLoader.load(getClass().getResource("ModifyingCollection.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
@@ -38,7 +38,7 @@ public class Controller {
     }
     public void backToModifyCollectionMenu(ActionEvent click) throws IOException{
         try {
-            root = FXMLLoader.load(getClass().getResource("ModifyingCollection.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
@@ -49,7 +49,7 @@ public class Controller {
     }
     public void backToMainMenu(ActionEvent click) throws IOException{
         try {
-            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
@@ -60,7 +60,7 @@ public class Controller {
     }
     public void addToCollection(ActionEvent click) throws IOException{
         try {
-            root = FXMLLoader.load(getClass().getResource("AddToCollection.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/AddToCollection.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
@@ -71,7 +71,7 @@ public class Controller {
     }
     public void deleteFromCollection(ActionEvent click) throws IOException{
         try {
-            root = FXMLLoader.load(getClass().getResource("DeleteFromCollection.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/DeleteFromCollection.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
@@ -82,7 +82,7 @@ public class Controller {
     }
     public void editCollection(ActionEvent click) throws IOException{
         try {
-            root = FXMLLoader.load(getClass().getResource("EditCollection.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
             stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             scene =  new Scene(root);
             stage.setScene(scene);
