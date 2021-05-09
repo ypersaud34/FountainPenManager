@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
    <children>
       <Button layoutX="133.0" layoutY="152.0" mnemonicParsing="false" onAction="#viewCollection" prefHeight="48.0" prefWidth="135.0" text="View Collection" />
       <Button layoutX="133.0" layoutY="234.0" mnemonicParsing="false" onAction="#modifyCollection" prefHeight="48.0" prefWidth="135.0" text="Modify Collection" />

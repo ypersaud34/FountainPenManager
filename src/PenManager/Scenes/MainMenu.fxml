@@ -5,11 +5,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
    <children>
-      <Button layoutX="133.0" layoutY="152.0" mnemonicParsing="false" onAction="#viewCollection" prefHeight="48.0" prefWidth="135.0" text="View Collection" />
-      <Button layoutX="133.0" layoutY="234.0" mnemonicParsing="false" onAction="#modifyCollection" prefHeight="48.0" prefWidth="135.0" text="Modify Collection" />
-      <Text layoutX="65.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Pen Case" wrappingWidth="271.9830722808838">
+      <Button layoutX="307.0" layoutY="155.0" mnemonicParsing="false" onAction="#viewCollection" prefHeight="48.0" prefWidth="135.0" text="View Collection" />
+      <Button layoutX="308.0" layoutY="237.0" mnemonicParsing="false" onAction="#modifyCollection" prefHeight="48.0" prefWidth="135.0" text="Modify Collection" />
+      <Text layoutX="252.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Pen Case" wrappingWidth="247.9830722808838">
          <font>
             <Font name="NanumMyeongjo" size="43.0" />
          </font>

@@ -6,22 +6,22 @@ import java.util.Date;
 
 public class FountainPen {
     private int penID;
-    private String modelName,
-            brand,
-            color;
+    private String modelName;
+    private String brand;
+    private String color;
+    private String nib;
+    private String mechanism;
     private double price;
-    private Nib size;
-    private FillingMechanism mechanism;
     private Date dateEntered;
 
-    FountainPen(String modelName, String brand, String color,double price, FillingMechanism mechanism, Nib nib){
+    FountainPen(String modelName, String brand, String color, String nib,String mechanism,double price, Date dateEntered ){
         this.modelName = modelName;
         this.brand = brand;
         this.color = color;
         this.price = price;
-        this.size = nib;
+        this.nib = nib;
         this.mechanism =mechanism;
-        this.dateEntered = new java.util.Date();
+        this.dateEntered = dateEntered;
     }
     //Getter methods
     public double getPenID(){
@@ -42,62 +42,49 @@ public class FountainPen {
         return price;
     }
 
-    public Nib getSize(){
-        return size;
+    public String getNib(){
+        return nib;
     }
 
     public Date getDateEntered(){
         return dateEntered;
     }
 
-    public FillingMechanism getMechanism(){
+    public String getMechanism(){
         return mechanism;
     }
     //Setter methods
-    public void setPenID(){
+    public void setPenID(int penID){
         this.penID=penID;
     }
+
     public void setModelName(String modelName){
         this.modelName = modelName;
     }
+
     public void setBrand(String brand){
         this.brand = brand;
     }
+
     public void setColor(String color){
-        this.color=color;
+        this.color = color;
     }
+
     public void setPrice(double price){
-        this.price=price;
+        this.price = price;
     }
-    public void setSize(Nib nib){
-        this.size = nib;
+
+    public void setSize(String nib){
+        this.nib = nib;
     }
 
     public void setDateEntered(Date dateEntered){
         this.dateEntered = dateEntered;
     }
 
-    public void setMechanism(FillingMechanism mechanism){
-        this.mechanism=mechanism;
+    public void setMechanism(String mechanism){
+        this.mechanism = mechanism;
     }
 
 
-}
-
-// Used to represent the most common nib sizes
-enum Nib {
-    EXTRAFINE,
-    FINE,
-    MEDIUM,
-    BROAD,
-    ITALIC,
-    FLEX
-}
-
-//Used to represent the most common filliing mechanisms
-enum FillingMechanism{
-    CONVERTER, // Used for both cartrige and converter pens
-    PISTON,
-    VACUUM,
-    EYEDROPPER
 }

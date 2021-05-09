@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
    <children>
       <Button layoutX="173.0" layoutY="336.0" mnemonicParsing="false" onAction="#backToModifyCollectionMenu" text="Back" />
       <Label layoutX="100.0" layoutY="14.0" prefHeight="29.0" prefWidth="193.0" text="Select a Pen to Edit">
