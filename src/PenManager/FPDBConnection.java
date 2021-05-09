@@ -2,9 +2,10 @@ package DBConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class DBConnection {
-    public static void main(String[] args) {
+public class FPDBConnection {
+    public static Connection getConnection() {
         Connection DBConnection = null;
         try{
             Class.forName("org.postgresql.Driver");
@@ -22,5 +23,6 @@ public class DBConnection {
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+        return DBConnection;
     }
 }

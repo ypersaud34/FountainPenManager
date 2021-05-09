@@ -1,5 +1,7 @@
 package PenManager;
 
+import DBConnection.FPDBConnection;
+
 import java.util.Date;
 
 public class FountainPen {
@@ -12,15 +14,19 @@ public class FountainPen {
     private FillingMechanism mechanism;
     private Date dateEntered;
 
-    FountainPen(String modelName, String brand, String color, FillingMechanism mechanism, Nib size){
+    FountainPen(String modelName, String brand, String color,double price, FillingMechanism mechanism, Nib nib){
         this.modelName = modelName;
         this.brand = brand;
         this.color = color;
-        this.size = size;
+        this.price = price;
+        this.size = nib;
         this.mechanism =mechanism;
         this.dateEntered = new java.util.Date();
     }
     //Getter methods
+    public double getPenID(){
+        return penID;
+    }
     public String getModelName(){
         return modelName;
     }
@@ -31,6 +37,9 @@ public class FountainPen {
 
     public String getColor(){
         return color;
+    }
+    public double getPrice(){
+        return price;
     }
 
     public Nib getSize(){
@@ -45,24 +54,29 @@ public class FountainPen {
         return mechanism;
     }
     //Setter methods
+    public void setPenID(){
+        this.penID=penID;
+    }
     public void setModelName(String modelName){
         this.modelName = modelName;
     }
-
     public void setBrand(String brand){
         this.brand = brand;
     }
-
-    public void setSize(Nib size){
-        this.size = size;
+    public void setColor(String color){
+        this.color=color;
+    }
+    public void setPrice(double price){
+        this.price=price;
+    }
+    public void setSize(Nib nib){
+        this.size = nib;
     }
 
     public void setDateEntered(Date dateEntered){
         this.dateEntered = dateEntered;
     }
-    public void setColor(String color){
-        this.color=color;
-    }
+
     public void setMechanism(FillingMechanism mechanism){
         this.mechanism=mechanism;
     }
