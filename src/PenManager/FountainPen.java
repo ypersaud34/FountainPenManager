@@ -14,7 +14,8 @@ public class FountainPen {
     private double price;
     private Date dateEntered;
 
-    FountainPen(String modelName, String brand, String color, String nib,String mechanism,double price, Date dateEntered ){
+    FountainPen(int penID,String modelName, String brand, String color, double price, String nib,String mechanism, Date dateEntered ){
+        this.penID=penID;
         this.modelName = modelName;
         this.brand = brand;
         this.color = color;
@@ -84,6 +85,19 @@ public class FountainPen {
 
     public void setMechanism(String mechanism){
         this.mechanism = mechanism;
+    }
+    @Override
+    public String toString(){
+        return new String(
+       "Pen ID: " + penID + "\n"+
+        "Model Name: "+ modelName + "\n" +
+        "Brand: " + brand + "\n" +
+        "Color: " + color + "\n" +
+        "Nib: " + nib + "\n"+
+        "Price: "+ price + "\n"+
+        "Filling Mechanism: " + mechanism +  "\n"+
+        "Date Entered: "+ dateEntered.toString()
+        );
     }
 
 

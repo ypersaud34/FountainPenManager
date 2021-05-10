@@ -1,7 +1,6 @@
 package PenManager;
 
 import DBConnection.FPDBConnection;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +31,9 @@ public class TableController implements Initializable {
     @FXML
     private TableView<FountainPen> table;
     @FXML
-    private TableColumn<FountainPen,String> model_name;
+    private TableColumn<FountainPen,Integer> penID;
+    @FXML
+    private TableColumn<FountainPen,String> modelName;
     @FXML
     private TableColumn<FountainPen,String> brand;
     @FXML
@@ -40,46 +41,49 @@ public class TableController implements Initializable {
     @FXML
     private TableColumn<FountainPen, Double> price;
     @FXML
-    private TableColumn<FountainPen,String> nib ;
+    private TableColumn<FountainPen,String> nib;
     @FXML
-    private TableColumn<FountainPen,String> filling_mechanism;
+    private TableColumn<FountainPen,String> fillingMechanism;
     @FXML
-    private TableColumn<FountainPen, Date> date_entered;
+    private TableColumn<FountainPen, Date> dateEntered;
 
     ObservableList<FountainPen> collection = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            Connection FPDB = FPDBConnection.getConnection();
+            Connection connection = FPDBConnection.getConnection();
 
-            ResultSet resultSet = FPDB.createStatement().executeQuery("SELECT * FROM pens;");
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM pens");
 
             while (resultSet.next()){
-                collection.add(new FountainPen(
+                FountainPen pen = new FountainPen(
+                        resultSet.getInt("pen_id"),
                         resultSet.getString("model_name"),
                         resultSet.getString("brand"),
                         resultSet.getString("color"),
+                        resultSet.getDouble("price"),
                         resultSet.getString("nib"),
                         resultSet.getString("filling_Mechanism"),
-                        resultSet.getDouble("price"),
-                        resultSet.getDate("date_entered")));
-
+                        resultSet.getDate("date_entered"));
+                collection.add(pen);
             }
 
-            model_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-            color.setCellValueFactory(new PropertyValueFactory<>("Color"));
-            price.setCellValueFactory(new PropertyValueFactory<>("Price"));
-            nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-            filling_mechanism.setCellValueFactory(new PropertyValueFactory<>("Fill Mechanism"));
-            date_entered.setCellValueFactory(new PropertyValueFactory<>("Entered"));
-
-            table.setItems(collection);
         }
         catch (SQLException e){
             Logger.getLogger(TableController.class.getName()).log(Level.SEVERE,null, e);
+            System.out.println("Status: Failed");
         }
+        penID.setCellValueFactory(new PropertyValueFactory<>("Pen Number"));
+        modelName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
+        color.setCellValueFactory(new PropertyValueFactory<>("Color"));
+        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
+        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Fill Mechanism"));
+        dateEntered.setCellValueFactory(new PropertyValueFactory<>("Entered"));
+
+        table.setItems(collection);
     }
     public void backToMainMenu(ActionEvent click) throws IOException {
         try {

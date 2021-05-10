@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
    <children>
-      <Label layoutX="112.0" layoutY="14.0" prefHeight="29.0" prefWidth="176.0" text="Modify Collection">
+      <Label layoutX="287.0" layoutY="46.0" prefHeight="29.0" prefWidth="176.0" text="Modify Collection">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="125.0" layoutY="73.0" mnemonicParsing="false" onAction="#addToCollection" prefHeight="35.0" prefWidth="150.0" text="Add" />
-      <Button layoutX="125.0" layoutY="252.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="35.0" prefWidth="150.0" text="Back" />
-      <Button layoutX="125.0" layoutY="133.0" mnemonicParsing="false" onAction="#deleteFromCollection" prefHeight="35.0" prefWidth="150.0" text="Delete" />
-      <Button layoutX="125.0" layoutY="193.0" mnemonicParsing="false" onAction="#editCollection" prefHeight="35.0" prefWidth="150.0" text="Edit" />
+      <Button layoutX="300.0" layoutY="111.0" mnemonicParsing="false" onAction="#addToCollection" prefHeight="35.0" prefWidth="150.0" text="Add" />
+      <Button layoutX="300.0" layoutY="285.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="35.0" prefWidth="150.0" text="Back" />
+      <Button layoutX="300.0" layoutY="171.0" mnemonicParsing="false" onAction="#deleteFromCollection" prefHeight="35.0" prefWidth="150.0" text="Delete" />
+      <Button layoutX="300.0" layoutY="228.0" mnemonicParsing="false" onAction="#editCollection" prefHeight="35.0" prefWidth="150.0" text="Edit" />
    </children>
 </AnchorPane>
