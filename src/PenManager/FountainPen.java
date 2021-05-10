@@ -21,36 +21,31 @@ public class FountainPen {
         this.color = color;
         this.price = price;
         this.nib = nib;
-        this.mechanism =mechanism;
+        this.mechanism = mechanism;
         this.dateEntered = dateEntered;
     }
     //Getter methods
-    public double getPenID(){
+    public int getPenID(){
         return penID;
     }
     public String getModelName(){
         return modelName;
     }
-
     public String getBrand(){
         return brand;
     }
-
     public String getColor(){
         return color;
     }
     public double getPrice(){
         return price;
     }
-
     public String getNib(){
         return nib;
     }
-
     public Date getDateEntered(){
         return dateEntered;
     }
-
     public String getMechanism(){
         return mechanism;
     }

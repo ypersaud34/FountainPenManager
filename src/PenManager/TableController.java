@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 
 public class TableController implements Initializable {
 
+    // The following correspond the relevant table and columns
     @FXML
     private TableView<FountainPen> table;
     @FXML
@@ -52,20 +53,24 @@ public class TableController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+
+            //Established connection to database
             Connection connection = FPDBConnection.getConnection();
 
-            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM pens");
+            //Display the entire table
+            ResultSet pens = connection.createStatement().executeQuery("SELECT * FROM pens");
 
-            while (resultSet.next()){
+            while (pens.next()){
                 FountainPen pen = new FountainPen(
-                        resultSet.getInt("pen_id"),
-                        resultSet.getString("model_name"),
-                        resultSet.getString("brand"),
-                        resultSet.getString("color"),
-                        resultSet.getDouble("price"),
-                        resultSet.getString("nib"),
-                        resultSet.getString("filling_Mechanism"),
-                        resultSet.getDate("date_entered"));
+                        pens.getInt("pen_id"),
+                        pens.getString("model_name"),
+                        pens.getString("brand"),
+                        pens.getString("color"),
+                        pens.getDouble("price"),
+                        pens.getString("nib"),
+                        pens.getString("filling_mechanism"),
+                        pens.getDate("date_entered"));
+                //System.out.println(pen.toString());
                 collection.add(pen);
             }
 
@@ -74,14 +79,14 @@ public class TableController implements Initializable {
             Logger.getLogger(TableController.class.getName()).log(Level.SEVERE,null, e);
             System.out.println("Status: Failed");
         }
-        penID.setCellValueFactory(new PropertyValueFactory<>("Pen Number"));
-        modelName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
+        modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
         brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
         color.setCellValueFactory(new PropertyValueFactory<>("Color"));
         price.setCellValueFactory(new PropertyValueFactory<>("Price"));
         nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Fill Mechanism"));
-        dateEntered.setCellValueFactory(new PropertyValueFactory<>("Entered"));
+        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
+        dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
 
         table.setItems(collection);
     }
