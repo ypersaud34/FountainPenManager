@@ -7,24 +7,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
+<AnchorPane prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.SceneController">
    <children>
-      <Label layoutX="64.0" layoutY="14.0" prefHeight="12.0" prefWidth="272.0" text="Enter The Following Details">
+      <Label layoutX="289.0" layoutY="25.0" prefHeight="12.0" prefWidth="272.0" text="Enter The Following Details">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField layoutX="120.0" layoutY="84.0" />
-      <Label layoutX="188.0" layoutY="183.0" prefHeight="0.0" prefWidth="30.0" text="Color" />
-      <Label layoutX="186.0" layoutY="67.0" text="Name" />
-      <Label layoutX="186.0" layoutY="126.0" text="Brand" textAlignment="CENTER" />
-      <TextField layoutX="120.0" layoutY="143.0" />
-      <TextField layoutX="121.0" layoutY="200.0" />
-      <ChoiceBox layoutX="120.0" layoutY="250.0" prefHeight="25.0" prefWidth="161.0" />
-      <Label layoutX="150.0" layoutY="286.0" prefHeight="17.0" prefWidth="101.0" text="Filliing Mechanism" />
-      <Label layoutX="188.0" layoutY="233.0" prefHeight="0.0" prefWidth="30.0" text="Nib" />
-      <ChoiceBox layoutX="120.0" layoutY="303.0" prefHeight="25.0" prefWidth="161.0" />
-      <Button layoutX="79.0" layoutY="349.0" mnemonicParsing="false" onAction="#backToModifyCollectionMenu" prefHeight="25.0" prefWidth="82.0" text="Back" />
-      <Button layoutX="241.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Add" />
+      <TextField layoutX="292.0" layoutY="95.0" prefHeight="25.0" prefWidth="270.0" />
+      <Label layoutX="413.0" layoutY="194.0" prefHeight="0.0" prefWidth="30.0" text="Color" />
+      <Label layoutX="411.0" layoutY="78.0" text="Name" />
+      <Label layoutX="411.0" layoutY="137.0" text="Brand" textAlignment="CENTER" />
+      <ChoiceBox layoutX="290.0" layoutY="261.0" prefHeight="25.0" prefWidth="270.0" />
+      <Label layoutX="375.0" layoutY="297.0" prefHeight="17.0" prefWidth="101.0" text="Filliing Mechanism" />
+      <Label layoutX="413.0" layoutY="244.0" prefHeight="0.0" prefWidth="30.0" text="Nib" />
+      <ChoiceBox layoutX="292.0" layoutY="314.0" prefHeight="25.0" prefWidth="270.0" />
+      <Button layoutX="304.0" layoutY="385.0" mnemonicParsing="false" onAction="#backToModifyCollectionMenu" prefHeight="25.0" prefWidth="82.0" text="Back" />
+      <Button layoutX="466.0" layoutY="385.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Add" />
+      <TextField layoutX="292.0" layoutY="154.0" prefHeight="25.0" prefWidth="270.0" />
+      <TextField layoutX="292.0" layoutY="211.0" prefHeight="25.0" prefWidth="270.0" />
    </children>
 </AnchorPane>
