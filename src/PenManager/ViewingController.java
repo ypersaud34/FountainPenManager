@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TableController implements Initializable {
+public class ViewingController implements Initializable {
 
     // The following correspond the relevant table and columns
     @FXML
@@ -76,7 +76,7 @@ public class TableController implements Initializable {
 
         }
         catch (SQLException e){
-            Logger.getLogger(TableController.class.getName()).log(Level.SEVERE,null, e);
+            Logger.getLogger(ViewingController.class.getName()).log(Level.SEVERE,null, e);
             System.out.println("Status: Failed");
         }
         penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));

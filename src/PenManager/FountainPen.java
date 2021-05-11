@@ -51,7 +51,7 @@ public class FountainPen {
     }
     //Setter methods
     public void setPenID(int penID){
-        this.penID=penID;
+        this.penID = penID;
     }
 
     public void setModelName(String modelName){
