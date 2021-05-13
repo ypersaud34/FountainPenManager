@@ -76,7 +76,7 @@ public class EditingController implements Initializable {
 
         }
         catch (SQLException e){
-            Logger.getLogger(ViewingController.class.getName()).log(Level.SEVERE,null, e);
+            Logger.getLogger(EditingController.class.getName()).log(Level.SEVERE,null, e);
             System.out.println("Status: Failed");
         }
         //Set the columns to the proper values

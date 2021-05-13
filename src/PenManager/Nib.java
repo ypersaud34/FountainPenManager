@@ -1,5 +1,5 @@
 package PenManager;
-
+//Used to refer to the most common types of nib sizes/types.
 public final class Nib {
     public static final String EXTRAFINE = "Extra-Fine";
     public static final String FINE = "Fine";
