@@ -18,10 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +68,7 @@ public class DeletingController implements Initializable {
                         pens.getDouble("price"),
                         pens.getString("nib"),
                         pens.getString("filling_mechanism"),
-                        pens.getDate("date_entered"));
+                        pens.getDate("date_entered").toLocalDate());
                 collection.add(pen);
             }
 
