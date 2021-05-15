@@ -115,7 +115,8 @@ public class FountainPen {
             ResultSet rs =  selectAll.executeQuery(getCount);
             rs.next();
             return rs.getInt(1);
-
-
+    }
+    public static int getNewPenID() throws SQLException {
+        return getNumberOfPens()+1;
     }
 }
