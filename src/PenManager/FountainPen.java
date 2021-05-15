@@ -2,7 +2,10 @@ package PenManager;
 
 import DBConnection.FPDBConnection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 
 public class FountainPen {

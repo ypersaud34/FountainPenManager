@@ -73,13 +73,14 @@ public class AddingController implements Initializable {
                     + brandInput + ","
                     + colorInput + ","
                     + priceInput + ","
-                    + nibInput + ","s
+                    + nibInput + ","
                     + mechanismInput + ","
                     + sq + entryDate + sq +")";
             connection.createStatement().execute(insertInto);
+
         }
         catch(SQLException e){
-            e.getErrorCode();
+                System.out.println(e.getErrorCode());
         }
     }
     public void backToModifyCollectionMenu(ActionEvent click) throws IOException {

@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,11 +14,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +43,7 @@ public class DeletingController implements Initializable {
     @FXML
     private TableColumn<FountainPen, Date> dateEntered;
 
+    // This list will be used to populate the table.
     ObservableList<FountainPen> collection = FXCollections.observableArrayList();
 
     @Override
@@ -60,6 +58,8 @@ public class DeletingController implements Initializable {
 
             // Add each pen from DB to collection
             while (pens.next()){
+
+                //Create a new FountainPen object
                 FountainPen pen = new FountainPen(
                         pens.getInt("pen_id"),
                         pens.getString("model_name"),
@@ -69,6 +69,8 @@ public class DeletingController implements Initializable {
                         pens.getString("nib"),
                         pens.getString("filling_mechanism"),
                         pens.getDate("date_entered").toLocalDate());
+
+                //Then add to the list
                 collection.add(pen);
             }
 
@@ -87,9 +89,11 @@ public class DeletingController implements Initializable {
         fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
         dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
 
+        //Then display the list in the table.
         table.setItems(collection);
     }
-    public void backToModifyCollectionMenu(ActionEvent click) throws IOException{
+    // Allows the user to go back to the previous menu.
+    public void backToModifyCollectionMenu(ActionEvent click){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
             Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
@@ -100,7 +104,7 @@ public class DeletingController implements Initializable {
             e.printStackTrace();
         }
     }
-    public void deleteEntry(){
+    public void delete(){
 
     }
 }
