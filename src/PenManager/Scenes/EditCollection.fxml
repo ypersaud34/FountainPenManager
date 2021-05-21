@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.EditingController">
    <children>
-      <Button layoutX="403.0" layoutY="451.0" mnemonicParsing="false" onAction="#backToModifyCollectionMenu" text="Back" />
+      <Button layoutX="379.0" layoutY="451.0" mnemonicParsing="false" onAction="#backToModifyCollectionMenu" text="Back" />
       <Label layoutX="329.0" layoutY="14.0" prefHeight="29.0" prefWidth="193.0" text="Select a Pen to Edit">
          <font>
             <Font size="24.0" />
@@ -27,5 +27,6 @@
             <TableColumn fx:id="dateEntered" minWidth="100.0" prefWidth="100.0" text="Date" />
          </columns>
       </TableView>
+      <Button layoutX="476.0" layoutY="451.0" mnemonicParsing="false" onAction="#changeToEditingScreen" text="Edit" />
    </children>
 </AnchorPane>

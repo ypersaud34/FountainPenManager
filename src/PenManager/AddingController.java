@@ -1,6 +1,6 @@
 package PenManager;
 
-import DBConnection.FPDBConnection;
+import DBConnection.DatabaseManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -45,7 +44,7 @@ public class AddingController implements Initializable {
     public void add() {
         try {
             //Establish the connection
-            Connection connection = FPDBConnection.getConnection();
+            DatabaseManager.getConnection();
 
             //Set the  necessary values
             int id = FountainPen.getNewPenID();
@@ -70,9 +69,7 @@ public class AddingController implements Initializable {
                                 + mechanismInput + "','"
                                 + entryDate +"')";
 
-            //Execute the statement
-            connection.createStatement().execute(insertInto);
-            // After execution, a new entry should appear on the DB.
+            DatabaseManager.getConnection().createStatement().execute(insertInto);
         }
         catch(SQLException e){
                 System.out.println(e.getErrorCode());

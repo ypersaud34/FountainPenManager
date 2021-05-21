@@ -1,7 +1,7 @@
 package PenManager;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Arrays;
 
 //Used to refer to the most common types of nib sizes/types.
 public final class Nib {
@@ -13,14 +13,7 @@ public final class Nib {
     public static final String FLEX = "Flex";
 
     public static ArrayList<String> getNibTypes(){
-        ArrayList<String> nibTypes= new ArrayList<>();
-        nibTypes.add(EXTRAFINE);
-        nibTypes.add(FINE);
-        nibTypes.add(MEDIUM);
-        nibTypes.add(BROAD);
-        nibTypes.add(ITALIC);
-        nibTypes.add(FLEX);
-        return nibTypes;
+        return new ArrayList<>(Arrays.asList(EXTRAFINE, FINE, MEDIUM, BROAD, ITALIC, FLEX));
     }
 
 

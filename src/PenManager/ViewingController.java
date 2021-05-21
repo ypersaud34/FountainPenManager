@@ -1,6 +1,6 @@
 package PenManager;
 
-import DBConnection.FPDBConnection;
+import DBConnection.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,13 +49,23 @@ public class ViewingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateTable();
+    }
+    public void backToMainMenu(ActionEvent click) throws IOException {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
+            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
+            Scene scene =  new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void populateTable(){
         try {
 
-            //Established connection to database
-            Connection connection = FPDBConnection.getConnection();
-
-            //Display the entire table
-            ResultSet pens = connection.createStatement().executeQuery("SELECT * FROM pens");
+            ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
 
             while (pens.next()){
                 FountainPen pen = new FountainPen(
@@ -87,15 +96,5 @@ public class ViewingController implements Initializable {
 
         table.setItems(collection);
     }
-    public void backToMainMenu(ActionEvent click) throws IOException {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
-            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+
 }

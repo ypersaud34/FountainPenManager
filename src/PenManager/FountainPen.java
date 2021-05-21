@@ -1,6 +1,6 @@
 package PenManager;
 
-import DBConnection.FPDBConnection;
+import DBConnection.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -109,7 +109,7 @@ public class FountainPen {
 
     public static int getNumberOfPens() throws SQLException {
 
-            Connection connection = FPDBConnection.getConnection();
+            Connection connection = DatabaseManager.getConnection();
             String getCount="SELECT COUNT(*) FROM Pens";
             Statement selectAll= connection.createStatement();
             ResultSet rs =  selectAll.executeQuery(getCount);

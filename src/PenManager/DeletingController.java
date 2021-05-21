@@ -1,6 +1,6 @@
 package PenManager;
 
-import DBConnection.FPDBConnection;
+import DBConnection.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,49 +49,7 @@ public class DeletingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-
-            //Established connection to database
-            Connection connection = FPDBConnection.getConnection();
-
-            //Display the entire table
-            ResultSet pens = connection.createStatement().executeQuery("SELECT * FROM pens");
-
-            // Add each pen from DB to collection
-            while (pens.next()){
-
-                //Create a new FountainPen object
-                FountainPen pen = new FountainPen(
-                        pens.getInt("pen_id"),
-                        pens.getString("model_name"),
-                        pens.getString("brand"),
-                        pens.getString("color"),
-                        pens.getDouble("price"),
-                        pens.getString("nib"),
-                        pens.getString("filling_mechanism"),
-                        pens.getDate("date_entered").toLocalDate());
-
-                //Then add to the list
-                collection.add(pen);
-            }
-
-        }
-        catch (SQLException e){
-            Logger.getLogger(DeletingController.class.getName()).log(Level.SEVERE,null, e);
-            System.out.println("Status: Failed");
-        }
-        //Set the columns to the proper values
-        penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
-        modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
-        brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-        color.setCellValueFactory(new PropertyValueFactory<>("Color"));
-        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
-        nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
-        dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
-
-        //Then display the list in the table.
-        table.setItems(collection);
+        populateTable();
     }
     // Allows the user to go back to the previous menu.
     public void backToModifyCollectionMenu(ActionEvent click){
@@ -104,7 +63,49 @@ public class DeletingController implements Initializable {
             e.printStackTrace();
         }
     }
-    public void delete(){
+    public void delete() throws SQLException {
+        //
+        FountainPen penToDelete = table.getSelectionModel().getSelectedItem();
+        String deleteStatement = "DELETE FROM pens WHERE pen_id=" + penToDelete.getPenID();
+        DatabaseManager.getConnection().createStatement().execute(deleteStatement);
+        emptyTable();
+        populateTable();
+    }
+    private void populateTable(){
+        try {
 
+            ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
+
+            while (pens.next()){
+                FountainPen pen = new FountainPen(
+                        pens.getInt("pen_id"),
+                        pens.getString("model_name"),
+                        pens.getString("brand"),
+                        pens.getString("color"),
+                        pens.getDouble("price"),
+                        pens.getString("nib"),
+                        pens.getString("filling_mechanism"),
+                        pens.getDate("date_entered").toLocalDate());
+                collection.add(pen);
+            }
+
+        }
+        catch (SQLException e){
+            Logger.getLogger(DeletingController.class.getName()).log(Level.SEVERE,null, e);
+            System.out.println("Status: Failed");
+        }
+        penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
+        modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
+        brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
+        color.setCellValueFactory(new PropertyValueFactory<>("Color"));
+        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
+        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
+        dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
+
+        table.setItems(collection);
+    }
+    private void emptyTable(){
+        table.getItems().clear();
     }
 }
