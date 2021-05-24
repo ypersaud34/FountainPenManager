@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class DatabaseManager {
 
     /**
-     * Creates the connection to the require database with necessary information
+     * Creates a connection to the database
      * @return Connection to the database
      */
     public static Connection getConnection() {
@@ -31,19 +31,19 @@ public class DatabaseManager {
         return Connection;
     }
     /**
-     * Closes the database connection
-     * @throws SQLException if there is a problem with closing the database
+     * Closes the database connection.
+     * @throws SQLException if there is conflict upon closing.
      */
     public static void close() throws SQLException {
         getConnection().close();
     }
 
+    /**
+     * Performs a given statement on the connected database.
+     * @param statement a statement to execute
+     * @throws SQLException if there is conflict upon closing.
+     */
     public static void executeStatement(String statement) throws SQLException {
-
         getConnection().createStatement().execute(statement);
-        System.out.println("Success");
-    }
-    public static void executeQuery(String query) throws SQLException {
-        getConnection().createStatement().execute(query);
     }
 }

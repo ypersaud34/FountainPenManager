@@ -12,9 +12,9 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="300.0" layoutY="111.0" mnemonicParsing="false" onAction="#addToCollection" prefHeight="35.0" prefWidth="150.0" text="Add" />
+      <Button layoutX="300.0" layoutY="111.0" mnemonicParsing="false" onAction="#changeToAdd" prefHeight="35.0" prefWidth="150.0" text="Add" />
       <Button layoutX="300.0" layoutY="285.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="35.0" prefWidth="150.0" text="Back" />
-      <Button layoutX="300.0" layoutY="171.0" mnemonicParsing="false" onAction="#deleteFromCollection" prefHeight="35.0" prefWidth="150.0" text="Delete" />
-      <Button layoutX="300.0" layoutY="228.0" mnemonicParsing="false" onAction="#editCollection" prefHeight="35.0" prefWidth="150.0" text="Edit" />
+      <Button layoutX="300.0" layoutY="171.0" mnemonicParsing="false" onAction="#changeToDelete" prefHeight="35.0" prefWidth="150.0" text="Delete" />
+      <Button layoutX="300.0" layoutY="228.0" mnemonicParsing="false" onAction="#changeToEdit" prefHeight="35.0" prefWidth="150.0" text="Edit" />
    </children>
 </AnchorPane>

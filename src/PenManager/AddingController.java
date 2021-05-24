@@ -16,6 +16,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/**
+ * Manages all operations related to adding entries
+ * @author Yojeraj Persaud
+ * */
 public class AddingController implements Initializable {
 
     // The following correspond to the text fields in the window
@@ -31,7 +35,6 @@ public class AddingController implements Initializable {
     private ChoiceBox<String> nib;
     @FXML
     private ChoiceBox<String> fillingMechanism;
-    @FXML
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,11 +43,13 @@ public class AddingController implements Initializable {
         fillingMechanism.getItems().addAll(FillingMechanisms.getMechanismTypes());
     }
 
+    /**
+     * Adds an entry to the database.
+     */
     public void add() {
         try {
 
             DatabaseManager.executeStatement(buildInsertStatement());
-
             DatabaseManager.close();
 
         }
@@ -65,7 +70,6 @@ public class AddingController implements Initializable {
         }
     }
     private String buildInsertStatement() throws SQLException {
-
         //Set the  necessary values
         int id = FountainPen.getNewPenID();
         String nameInput = name.getText();
