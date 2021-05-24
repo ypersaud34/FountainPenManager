@@ -25,7 +25,7 @@ public class SceneController {
             e.printStackTrace();
         }
     }
-    public void modifyCollection(ActionEvent event) throws IOException{
+    public void modifyCollection(ActionEvent event){
         try {
             root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

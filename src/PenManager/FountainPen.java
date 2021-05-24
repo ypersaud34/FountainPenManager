@@ -108,7 +108,6 @@ public class FountainPen {
     }
 
     public static int getNumberOfPens() throws SQLException {
-
             Connection connection = DatabaseManager.getConnection();
             String getCount="SELECT COUNT(*) FROM Pens";
             Statement selectAll= connection.createStatement();

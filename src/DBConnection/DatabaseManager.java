@@ -2,6 +2,7 @@ package DBConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DatabaseManager {
     public static Connection getConnection() {
@@ -27,5 +28,9 @@ public class DatabaseManager {
             System.out.println(e.getMessage());
         }
         return Connection;
+    }
+
+    public static void close() throws SQLException {
+        getConnection().close();
     }
 }

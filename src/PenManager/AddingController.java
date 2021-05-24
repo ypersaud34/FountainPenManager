@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class AddingController implements Initializable {
 
+    // The following correspond to the text fields in the window
     @FXML
     private TextField name;
     @FXML
@@ -70,13 +71,14 @@ public class AddingController implements Initializable {
                                 + entryDate +"')";
 
             DatabaseManager.getConnection().createStatement().execute(insertInto);
+
+            DatabaseManager.close();
         }
         catch(SQLException e){
                 System.out.println(e.getErrorCode());
         }
     }
 
-    //Allow the user to go back and select another feature
     public void backToModifyCollectionMenu(ActionEvent click) throws IOException {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));

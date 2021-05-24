@@ -51,26 +51,15 @@ public class DeletingController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateTable();
     }
-    // Allows the user to go back to the previous menu.
-    public void backToModifyCollectionMenu(ActionEvent click){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
-            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+
     public void delete() throws SQLException {
-        //
         FountainPen penToDelete = table.getSelectionModel().getSelectedItem();
         String deleteStatement = "DELETE FROM pens WHERE pen_id=" + penToDelete.getPenID();
         DatabaseManager.getConnection().createStatement().execute(deleteStatement);
         emptyTable();
         populateTable();
     }
+
     private void populateTable(){
         try {
 
@@ -86,7 +75,10 @@ public class DeletingController implements Initializable {
                         pens.getString("nib"),
                         pens.getString("filling_mechanism"),
                         pens.getDate("date_entered").toLocalDate());
+
                 collection.add(pen);
+
+                DatabaseManager.close();
             }
 
         }
@@ -105,7 +97,20 @@ public class DeletingController implements Initializable {
 
         table.setItems(collection);
     }
+
     private void emptyTable(){
         table.getItems().clear();
+    }
+
+    public void backToModifyCollectionMenu(ActionEvent click){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
+            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
+            Scene scene =  new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

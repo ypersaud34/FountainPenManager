@@ -14,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -51,17 +50,6 @@ public class ViewingController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateTable();
     }
-    public void backToMainMenu(ActionEvent click) throws IOException {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
-            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
     private void populateTable(){
         try {
 
@@ -79,22 +67,34 @@ public class ViewingController implements Initializable {
                         pens.getDate("date_entered").toLocalDate());
                 collection.add(pen);
             }
+            penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
+            modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
+            brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
+            color.setCellValueFactory(new PropertyValueFactory<>("Color"));
+            price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+            nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
+            fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
+            dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
 
+            table.setItems(collection);
+
+            DatabaseManager.close();
         }
+
         catch (SQLException e){
             Logger.getLogger(ViewingController.class.getName()).log(Level.SEVERE,null, e);
             System.out.println("Status: Failed");
         }
-        penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
-        modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
-        brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-        color.setCellValueFactory(new PropertyValueFactory<>("Color"));
-        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
-        nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
-        dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
-
-        table.setItems(collection);
     }
-
+    public void backToMainMenu(ActionEvent click){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
+            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
+            Scene scene =  new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
