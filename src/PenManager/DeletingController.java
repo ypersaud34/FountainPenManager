@@ -53,9 +53,7 @@ public class DeletingController implements Initializable {
     }
 
     public void delete() throws SQLException {
-        FountainPen penToDelete = table.getSelectionModel().getSelectedItem();
-        String deleteStatement = "DELETE FROM pens WHERE pen_id=" + penToDelete.getPenID();
-        DatabaseManager.getConnection().createStatement().execute(deleteStatement);
+        DatabaseManager.getConnection().createStatement().execute(buildDeleteStatement());
         emptyTable();
         populateTable();
     }
@@ -66,6 +64,7 @@ public class DeletingController implements Initializable {
             ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
 
             while (pens.next()){
+
                 FountainPen pen = new FountainPen(
                         pens.getInt("pen_id"),
                         pens.getString("model_name"),
@@ -86,6 +85,7 @@ public class DeletingController implements Initializable {
             Logger.getLogger(DeletingController.class.getName()).log(Level.SEVERE,null, e);
             System.out.println("Status: Failed");
         }
+
         penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
         modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
         brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
@@ -112,5 +112,9 @@ public class DeletingController implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String buildDeleteStatement(){
+        return "DELETE FROM pens WHERE pen_id=" + table.getSelectionModel().getSelectedItem().getPenID();
     }
 }

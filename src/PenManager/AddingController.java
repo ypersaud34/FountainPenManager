@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -38,48 +37,23 @@ public class AddingController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Populate the ChoiceBoxes
         nib.getItems().addAll(Nib.getNibTypes());
-        fillingMechanism.getItems().addAll(FillingMechanism.getMechanismTypes());
+        fillingMechanism.getItems().addAll(FillingMechanisms.getMechanismTypes());
     }
 
-    //Method to add a new entry to the database
     public void add() {
         try {
-            //Establish the connection
-            DatabaseManager.getConnection();
 
-            //Set the  necessary values
-            int id = FountainPen.getNewPenID();
-            String nameInput = name.getText();
-            String brandInput = brand.getText();
-            String colorInput = color.getText();
-            double priceInput = Double.parseDouble(price.getText());
-            String nibInput = nib.getValue();
-            String mechanismInput = fillingMechanism.getValue();
-            LocalDate entryDate = LocalDate.now();
-
-            //Build the string for the INSERT INTO statement
-            String insertInto = "INSERT INTO pens " +
-                                "(pen_id, model_name, brand, color, price, nib, filling_mechanism, date_entered) "
-                                + "VALUES("
-                                + id + ",'"
-                                + nameInput + "','"
-                                + brandInput + "','"
-                                + colorInput + "','"
-                                + priceInput + "','"
-                                + nibInput + "','"
-                                + mechanismInput + "','"
-                                + entryDate +"')";
-
-            DatabaseManager.getConnection().createStatement().execute(insertInto);
+            DatabaseManager.executeStatement(buildInsertStatement());
 
             DatabaseManager.close();
+
         }
         catch(SQLException e){
                 System.out.println(e.getErrorCode());
         }
     }
 
-    public void backToModifyCollectionMenu(ActionEvent click) throws IOException {
+    public void backToModifyCollectionMenu(ActionEvent click) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
             Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
@@ -89,5 +63,29 @@ public class AddingController implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    private String buildInsertStatement() throws SQLException {
+
+        //Set the  necessary values
+        int id = FountainPen.getNewPenID();
+        String nameInput = name.getText();
+        String brandInput = brand.getText();
+        String colorInput = color.getText();
+        double priceInput = Double.parseDouble(price.getText());
+        String nibInput = nib.getValue();
+        String mechanismInput = fillingMechanism.getValue();
+        LocalDate entryDate = LocalDate.now();
+
+        return "INSERT INTO pens " +
+                "(pen_id, model_name, brand, color, price, nib, filling_mechanism, date_entered) "
+                + "VALUES("
+                + id + ",'"
+                + nameInput + "','"
+                + brandInput + "','"
+                + colorInput + "','"
+                + priceInput + "','"
+                + nibInput + "','"
+                + mechanismInput + "','"
+                + entryDate +"')";
     }
 }

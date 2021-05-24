@@ -27,6 +27,6 @@
       <Label alignment="CENTER" layoutX="290.0" layoutY="351.0" prefHeight="17.0" prefWidth="101.0" text="Filliing Mechanism" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="290.0" />
       <ChoiceBox fx:id="fillingMechanismField" layoutX="290.0" layoutY="368.0" prefHeight="25.0" prefWidth="270.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="290.0" />
       <Button layoutX="303.0" layoutY="430.0" mnemonicParsing="false" onAction="#changeToEditingScreen" prefHeight="25.0" prefWidth="82.0" text="Back" />
-      <Button layoutX="465.0" layoutY="430.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="OK" />
+      <Button layoutX="465.0" layoutY="430.0" mnemonicParsing="false" onAction="#editEntry" prefHeight="25.0" prefWidth="82.0" text="OK" />
    </children>
 </AnchorPane>

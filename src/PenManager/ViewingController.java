@@ -67,6 +67,7 @@ public class ViewingController implements Initializable {
                         pens.getDate("date_entered").toLocalDate());
                 collection.add(pen);
             }
+
             penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
             modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
             brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
@@ -86,10 +87,10 @@ public class ViewingController implements Initializable {
             System.out.println("Status: Failed");
         }
     }
-    public void backToMainMenu(ActionEvent click){
+    public void backToMainMenu(ActionEvent event){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
-            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             Scene scene =  new Scene(root);
             stage.setScene(scene);
             stage.show();

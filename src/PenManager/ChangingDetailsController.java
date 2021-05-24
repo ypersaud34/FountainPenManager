@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -35,39 +34,20 @@ public class ChangingDetailsController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nibField.getItems().addAll(Nib.getNibTypes());
-        fillingMechanismField.getItems().addAll(FillingMechanism.getMechanismTypes());
+        fillingMechanismField.getItems().addAll(FillingMechanisms.getMechanismTypes());
         populateFields(Transfer.getPenToTransfer());
     }
 
-    public void editEntry() throws SQLException {
-
-        DatabaseManager.getConnection();
-        String nameChange = nameField.getText();
-        String brandChange = brandField.getText();
-        String colorChange = colorField.getText();
-        double priceChange = Double.parseDouble(priceField.getText());
-        String nibChange = nibField.getValue();
-        String mechanismChange = fillingMechanismField.getValue();
-        DatabaseManager.getConnection().close();
-        System.out.println(Transfer.getPenToTransfer().getPenID());
-        String updateStatement = "UPDATE pens " +
-                                 "SET " +
-                                 "model_name = " + "'" + nameChange + "'" + "," +
-                                 "brand = "+ "'" +brandChange + "'" + ", " +
-                                 "color = "+ "'" + colorChange + "'" + ", " +
-                                 "price = " + priceChange + ", " +
-                                 "nib = "+ "'" +nibChange+ "'" + ", " +
-                                 "filling_mechanism = "+ "'" + mechanismChange + "'" +
-                                 " WHERE pen_id = " + Transfer.getPenToTransfer().getPenID();
-        System.out.println(updateStatement);
-
-        DatabaseManager.getConnection().createStatement().execute(updateStatement);
-
-
+    public void editEntry(){
+        try {
+            DatabaseManager.executeStatement(buildUpdateStatement());
+        }
+        catch (SQLException s){
+            s.printStackTrace();
+        }
 
     }
     private void populateFields(FountainPen penToEdit){
-        Field[] fields = this.getClass().getDeclaredFields();
 
         nameField.setText(penToEdit.getModelName());
         brandField.setText(penToEdit.getBrand());
@@ -77,6 +57,29 @@ public class ChangingDetailsController implements Initializable{
         fillingMechanismField.setValue(penToEdit.getMechanism());
 
     }
+
+    private String buildUpdateStatement() throws SQLException {
+
+        String nameChange = nameField.getText();
+        String brandChange = brandField.getText();
+        String colorChange = colorField.getText();
+        double priceChange = Double.parseDouble(priceField.getText());
+        String nibChange = nibField.getValue();
+        String mechanismChange = fillingMechanismField.getValue();
+        DatabaseManager.getConnection().close();
+        System.out.println(Transfer.getPenToTransfer().getPenID());
+
+        return  "UPDATE pens " +
+                "SET " +
+                "model_name = " + "'" + nameChange + "'" + "," +
+                "brand = "+ "'" +brandChange + "'" + ", " +
+                "color = "+ "'" + colorChange + "'" + ", " +
+                "price = " + priceChange + ", " +
+                "nib = "+ "'" +nibChange+ "'" + ", " +
+                "filling_mechanism = "+ "'" + mechanismChange + "'" +
+                " WHERE pen_id = " + Transfer.getPenToTransfer().getPenID();
+    }
+
     public void changeToEditingScreen(ActionEvent event){
         try {
             Parent root =  FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
@@ -88,6 +91,7 @@ public class ChangingDetailsController implements Initializable{
             e.printStackTrace();
         }
     }
+
 
 
 }
