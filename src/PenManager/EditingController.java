@@ -85,7 +85,7 @@ public class EditingController implements Initializable {
             DatabaseManager.close();
 
         }
-        catch (SQLException e){
+        catch (SQLException | ClassNotFoundException e){
             Logger.getLogger(EditingController.class.getName()).log(Level.SEVERE,null, e);
             System.out.println("Status: Failed");
         }

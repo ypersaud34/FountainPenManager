@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 /**
  * Manages most of the functions used to switch between scenes/windows.
- * @author Yojeraj Persaud
+
  */
 public class SceneController {
 

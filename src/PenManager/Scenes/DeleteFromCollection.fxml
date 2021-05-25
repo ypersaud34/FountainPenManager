@@ -16,16 +16,16 @@
       </Label>
       <Button layoutX="354.0" layoutY="449.0" mnemonicParsing="false" onAction="#backToModifyCollectionMenu" text="Back" />
       <Button layoutX="455.0" layoutY="449.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
-      <TableView fx:id="table" layoutX="25.0" layoutY="67.0" prefHeight="366.0" prefWidth="800.0">
+      <TableView fx:id="penCollection" layoutX="25.0" layoutY="67.0" prefHeight="366.0" prefWidth="800.0">
          <columns>
-            <TableColumn fx:id="penID" minWidth="100.0" prefWidth="100.0" text="Number" />
-            <TableColumn fx:id="modelName" minWidth="100.0" prefWidth="100.0" text="Name" />
-            <TableColumn fx:id="brand" minWidth="100.0" prefWidth="100.0" text="Brand" />
-            <TableColumn fx:id="color" minWidth="100.0" prefWidth="100.0" text="Color" />
-            <TableColumn fx:id="price" minWidth="100.0" prefWidth="100.0" text="Price" />
-            <TableColumn fx:id="nib" minWidth="100.0" prefWidth="100.0" text="Nib" />
-            <TableColumn fx:id="fillingMechanism" minWidth="100.0" prefWidth="100.0" text="Mechanism" />
-            <TableColumn fx:id="dateEntered" minWidth="100.0" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="penIDColumn" minWidth="100.0" prefWidth="100.0" text="Number" />
+            <TableColumn fx:id="modelNameColumn" minWidth="100.0" prefWidth="100.0" text="Name" />
+            <TableColumn fx:id="brandColumn" minWidth="100.0" prefWidth="100.0" text="Brand" />
+            <TableColumn fx:id="colorColumn" minWidth="100.0" prefWidth="100.0" text="Color" />
+            <TableColumn fx:id="priceColumn" minWidth="100.0" prefWidth="100.0" text="Price" />
+            <TableColumn fx:id="nibColumn" minWidth="100.0" prefWidth="100.0" text="Nib" />
+            <TableColumn fx:id="fillingMechanismColumn" minWidth="100.0" prefWidth="100.0" text="Mechanism" />
+            <TableColumn fx:id="dateEnteredColumn" minWidth="100.0" prefWidth="100.0" text="Date" />
          </columns>
       </TableView>
    </children>
