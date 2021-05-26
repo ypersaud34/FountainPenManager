@@ -11,11 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ChangingDetailsController implements Initializable{
+public class ChangingDetailsController implements Initializable {
 
     //The following correspond the editing text fields
     @FXML
@@ -38,16 +39,15 @@ public class ChangingDetailsController implements Initializable{
         populateFields(Transfer.getPenToTransfer());
     }
 
-    public void editEntry(){
+    public void editEntry() {
         try {
             DatabaseManager.executeStatement(buildUpdateStatement());
-        }
-        catch (SQLException s){
+        } catch (SQLException s) {
             s.printStackTrace();
         }
-
     }
-    private void populateFields(FountainPen penToEdit){
+
+    private void populateFields(FountainPen penToEdit) {
 
         nameField.setText(penToEdit.getModelName());
         brandField.setText(penToEdit.getBrand());
@@ -69,29 +69,28 @@ public class ChangingDetailsController implements Initializable{
         DatabaseManager.getConnection().close();
         System.out.println(Transfer.getPenToTransfer().getPenID());
 
-        return  "UPDATE pens " +
+        return "UPDATE pens " +
                 "SET " +
                 "model_name = " + "'" + nameChange + "'" + "," +
-                "brand = "+ "'" +brandChange + "'" + ", " +
-                "color = "+ "'" + colorChange + "'" + ", " +
+                "brand = " + "'" + brandChange + "'" + ", " +
+                "color = " + "'" + colorChange + "'" + ", " +
                 "price = " + priceChange + ", " +
-                "nib = "+ "'" +nibChange+ "'" + ", " +
-                "filling_mechanism = "+ "'" + mechanismChange + "'" +
+                "nib = " + "'" + nibChange + "'" + ", " +
+                "filling_mechanism = " + "'" + mechanismChange + "'" +
                 " WHERE pen_id = " + Transfer.getPenToTransfer().getPenID();
     }
 
-    public void changeToEditingScreen(ActionEvent event){
+    public void changeToEditingScreen(ActionEvent event) {
         try {
-            Parent root =  FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

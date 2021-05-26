@@ -7,18 +7,19 @@ public final class Nib {
 
     private static ArrayList<String> nibTypes;
 
-    public static ArrayList<String> getNibTypes(){
+    public static ArrayList<String> getNibTypes() {
         addNibTypes();
         return nibTypes;
     }
-    private static void addNibTypes(){
+
+    private static void addNibTypes() {
         nibTypes = new ArrayList<>(Arrays.asList("Extra-Fine",
-                                                 "Fine",
-                                                 "Medium",
-                                                 "Broad",
-                                                 "Italic",
-                                                 "Flex",
-                                                 "Other"));
+                "Fine",
+                "Medium",
+                "Broad",
+                "Italic",
+                "Flex",
+                "Other"));
     }
 
 

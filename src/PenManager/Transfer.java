@@ -7,7 +7,7 @@ public class Transfer {
         return penToTransfer;
     }
 
-    public static  void setDataToTransfer(FountainPen penToTransfer) {
+    public static void setDataToTransfer(FountainPen penToTransfer) {
         Transfer.penToTransfer = penToTransfer;
     }
 }

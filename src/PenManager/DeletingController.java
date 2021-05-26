@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,54 +34,54 @@ public class DeletingController implements Initializable {
     @FXML
     private TableView<FountainPen> penCollection;
     @FXML
-    private TableColumn<FountainPen,Integer> penIDColumn;
+    private TableColumn<FountainPen, Integer> penIDColumn;
     @FXML
-    private TableColumn<FountainPen,String> modelNameColumn;
+    private TableColumn<FountainPen, String> modelNameColumn;
     @FXML
-    private TableColumn<FountainPen,String> brandColumn;
+    private TableColumn<FountainPen, String> brandColumn;
     @FXML
-    private TableColumn<FountainPen,String> colorColumn;
+    private TableColumn<FountainPen, String> colorColumn;
     @FXML
     private TableColumn<FountainPen, Double> priceColumn;
     @FXML
-    private TableColumn<FountainPen,String> nibColumn;
+    private TableColumn<FountainPen, String> nibColumn;
     @FXML
-    private TableColumn<FountainPen,String> fillingMechanismColumn;
+    private TableColumn<FountainPen, String> fillingMechanismColumn;
     @FXML
     private TableColumn<FountainPen, Date> dateEnteredColumn;
+    @FXML
+    private Label prompt;
 
     // This list will be used to populate the table.
     ObservableList<FountainPen> pensToDisplay = FXCollections.observableArrayList();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)  {
-        try {
-            populateTable();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateTable();
     }
+
     /**
      * Removes a record from the database. An DELETE statement is constructed by calling buildDeleteStatement()
      * and then given to the DatabaseManager class for execution.
      * class for execution.
-     * @throws SQLException if any SQL related errors occurs in executeStatement() or populateTable().
-     * @throws ClassNotFoundException if the required class can not be located in the executeStatement() or
-     * populateTable() methods.
      */
-    public void delete() throws SQLException, ClassNotFoundException {
-            DatabaseManager.executeStatement(buildDeleteStatement());
-            emptyTable();
-            populateTable();
-    }
-    /**
-     * Populates the penCollection table. A SELECT query is executed and performed on the connected database.
-     **/
-    private void populateTable() throws SQLException, ClassNotFoundException {
+    public void delete() {
 
+        DatabaseManager.executeStatement(buildDeleteStatement());
+        emptyTable();
+        populateTable();
+        prompt.setText("Pen Deleted!");
+
+    }
+
+    /**
+     * Populates the penCollection table. A SELECT * query is executed and performed on the connected database.
+     **/
+    private void populateTable() {
+        try {
             ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
 
-            while (pens.next()){
+            while (pens.next()) {
 
                 FountainPen pen = new FountainPen(
                         pens.getInt("pen_id"),
@@ -97,33 +98,53 @@ public class DeletingController implements Initializable {
                 DatabaseManager.close();
             }
 
+            penIDColumn.setCellValueFactory(new PropertyValueFactory<>("PenID"));
+            modelNameColumn.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
+            brandColumn.setCellValueFactory(new PropertyValueFactory<>("Brand"));
+            colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
+            priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+            nibColumn.setCellValueFactory(new PropertyValueFactory<>("Nib"));
+            fillingMechanismColumn.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
+            dateEnteredColumn.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
 
-
-        penIDColumn.setCellValueFactory(new PropertyValueFactory<>("PenID"));
-        modelNameColumn.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
-        brandColumn.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-        colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-        nibColumn.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-        fillingMechanismColumn.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
-        dateEnteredColumn.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
-
-        penCollection.setItems(pensToDisplay);
+            penCollection.setItems(pensToDisplay);
+        } catch (SQLException s) {
+            System.out.println("Error: Data Could Not Be Read In Properly.");
+            s.printStackTrace();
+        }
     }
-
-    private void emptyTable(){
+    /**
+     * Removes all elements from the TableView.
+     */
+    private void emptyTable() {
         penCollection.getItems().clear();
     }
 
-    public void backToModifyCollectionMenu(ActionEvent click) throws IOException {
+    /**
+     * Reloads the modifying menu from the 'Add' scene. This method is assigned to the 'Back' button and called
+     * when the button is clicked.
+     *
+     * @param event - used to advance to the next scene when the 'Back' button is clicked.
+     */
+    public void backToModifyCollectionMenu(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
-            Stage stage = (Stage) ((Node)click.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        } catch (IOException i) {
+            System.out.println("Error: Modifying Menu Could Not Be Loaded.");
+            i.printStackTrace();
+        }
     }
-
-    private String buildDeleteStatement(){
+    /**
+     * Builds and returns an DELETE statement using the injected fields. The return value is meant to remove a record
+     * from the database..
+     *
+     * @return an executable DELETE statement.
+     */
+    private String buildDeleteStatement() {
         return "DELETE FROM pens WHERE pen_id=" + penCollection.getSelectionModel().getSelectedItem().getPenID();
     }
 }

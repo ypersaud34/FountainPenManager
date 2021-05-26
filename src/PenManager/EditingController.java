@@ -14,13 +14,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EditingController implements Initializable {
 
@@ -28,19 +28,19 @@ public class EditingController implements Initializable {
     @FXML
     private TableView<FountainPen> table;
     @FXML
-    private TableColumn<FountainPen,Integer> penID;
+    private TableColumn<FountainPen, Integer> penID;
     @FXML
-    private TableColumn<FountainPen,String> modelName;
+    private TableColumn<FountainPen, String> modelName;
     @FXML
-    private TableColumn<FountainPen,String> brand;
+    private TableColumn<FountainPen, String> brand;
     @FXML
-    private TableColumn<FountainPen,String> color;
+    private TableColumn<FountainPen, String> color;
     @FXML
     private TableColumn<FountainPen, Double> price;
     @FXML
-    private TableColumn<FountainPen,String> nib;
+    private TableColumn<FountainPen, String> nib;
     @FXML
-    private TableColumn<FountainPen,String> fillingMechanism;
+    private TableColumn<FountainPen, String> fillingMechanism;
     @FXML
     private TableColumn<FountainPen, Date> dateEntered;
 
@@ -51,13 +51,13 @@ public class EditingController implements Initializable {
         populateTable();
     }
 
-    private void populateTable(){
+    private void populateTable() {
         try {
             //Display the entire table
             ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
 
             // Add each pen from DB to collection
-            while (pens.next()){
+            while (pens.next()) {
                 FountainPen pen = new FountainPen(
                         pens.getInt("pen_id"),
                         pens.getString("model_name"),
@@ -84,40 +84,42 @@ public class EditingController implements Initializable {
 
             DatabaseManager.close();
 
-        }
-        catch (SQLException | ClassNotFoundException e){
-            Logger.getLogger(EditingController.class.getName()).log(Level.SEVERE,null, e);
-            System.out.println("Status: Failed");
+        } catch (SQLException s) {
+            System.out.println("Error: Data Could Not Be Read In Properly.");
+            s.printStackTrace();
         }
 
     }
 
-    public void changeToEditingScreen(ActionEvent event){
+    public void changeToEditingScreen(ActionEvent event) {
+
         FountainPen penToEdit = table.getSelectionModel().getSelectedItem();
         Transfer.setDataToTransfer(penToEdit);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/EditInputs.fxml"));
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setUserData(penToEdit);
-            Scene scene =  new Scene(root);
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
 
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (IOException i) {
+            System.out.println("Error: Editing Screen Could Not Be Loaded.");
+            i.printStackTrace();
         }
     }
 
-    public void backToModifyCollectionMenu(ActionEvent event){
+    public void backToModifyCollectionMenu(ActionEvent event) {
         try {
-            Parent root =  FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (IOException i) {
+            System.out.println("Error: Modifying Menu Could Not Be Loaded.");
+            i.printStackTrace();
         }
     }
 

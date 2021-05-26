@@ -9,8 +9,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,6 +38,9 @@ public class AddingController implements Initializable {
     private ChoiceBox<String> nibOptions;
     @FXML
     private ChoiceBox<String> fillingMechanismOptions;
+    @FXML
+    private Label prompt;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,38 +50,51 @@ public class AddingController implements Initializable {
     /**
      * Writes a record to the database. An INSERT statement is constructed by calling buildInsertStatement()
      * and then passed to the DatabaseManager class for execution.
+     *
      * @throws SQLException if any SQL related errors occurs in the DatabaseManager methods or buildInsertStatement()
-     * method.
-     * @throws ClassNotFoundException if the required class can not be located in the getConnection() method used
-     * in the executeStatement() method.
+     *                      method.
      */
-    public void add() throws SQLException, ClassNotFoundException {
-
-        DatabaseManager.executeStatement(buildInsertStatement());
-        DatabaseManager.close();
-
+    public void add() throws SQLException {
+        try {
+            if (allDetailsEntered()) {
+                DatabaseManager.executeStatement(buildInsertStatement());
+                DatabaseManager.close();
+                prompt.setText("Pen Added!");
+            } else {
+                prompt.setText("All Details Required!");
+            }
+        } catch (NumberFormatException n) {
+            prompt.setText("Invalid Price!");
+        }
     }
 
     /**
      * Reloads the modifying menu from the 'Add' scene. This method is assigned to the 'Back' button and called
      * when the button is clicked.
+     *
      * @param event - used to advance to the next scene when the 'Back' button is clicked.
-     * @throws IOException if there is an I/0 error when loading the 'Modifying' menu.
      */
-    public void backToModifyCollectionMenu(ActionEvent event) throws IOException {
+    public void backToModifyCollectionMenu(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene scene =  new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        } catch (IOException i) {
+            System.out.println("Error: Modifying Menu Could Not Be Loaded.");
+            i.printStackTrace();
+        }
     }
+
     /**
-     * Builds and returns an INSERT statement using the injected fields. The return value is meant to be used as
-     * an executable SQL statement.
+     * Builds and returns an INSERT statement using the injected fields. The return value is meant to be used to add
+     * a record to the database.
+     *
      * @return an executable INSERT statement.
      * @throws SQLException if any SQL related errors occurs when attempting to generate an new penID.
      */
-    private String buildInsertStatement() throws SQLException{
+    private String buildInsertStatement() throws SQLException {
 
         // Assign the following using the injected fields.
         int id = FountainPen.getNewPenID();
@@ -88,6 +106,7 @@ public class AddingController implements Initializable {
         String mechanismInput = fillingMechanismOptions.getValue();
         LocalDate entryDate = LocalDate.now();
 
+
         return "INSERT INTO pens " +
                 "(pen_id, model_name, brand, color, price, nib, filling_mechanism, date_entered) "
                 + "VALUES("
@@ -98,15 +117,29 @@ public class AddingController implements Initializable {
                 + priceInput + "','"
                 + nibInput + "','"
                 + mechanismInput + "','"
-                + entryDate +"')";
+                + entryDate + "')";
     }
+
     /**
      * Populates the nibOptions and fillingMechanismOptions ChoiceBoxes. The Nib class provides the options for
      * the nibOptions while the FillingMechanism class provides the options for the fillingMechanismOptions.
-     *
      */
-    private void populateChoiceBoxes(){
+    private void populateChoiceBoxes() {
         nibOptions.getItems().addAll(Nib.getNibTypes());
         fillingMechanismOptions.getItems().addAll(FillingMechanisms.getMechanismTypes());
+    }
+
+    /**
+     * Returns true if there are no empty input fields, false otherwise.
+     *
+     * @return a boolean indicating whether or not all fields have been filled.
+     */
+    private boolean allDetailsEntered() {
+        return !nameField.getText().isEmpty() &&
+                !brandField.getText().isEmpty() &&
+                !colorField.getText().isEmpty() &&
+                !priceField.getText().isEmpty() &&
+                !nibOptions.getValue().isEmpty() &&
+                !fillingMechanismOptions.getValue().isEmpty();
     }
 }

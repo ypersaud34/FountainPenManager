@@ -8,19 +8,19 @@ public final class FillingMechanisms {
 
     private static ArrayList<String> mechanismTypes;
 
-    public static ArrayList<String> getMechanismTypes(){
+    public static ArrayList<String> getMechanismTypes() {
         addMechanismTypes();
         return mechanismTypes;
     }
-    private static void addMechanismTypes(){
-        mechanismTypes = new ArrayList<>(Arrays.asList("Converter",
-                                                 "Cartridge",
-                                                 "Piston",
-                                                 "Vacuum",
-                                                 "Eyedropper",
-                                                 "Other"));
-    }
 
+    private static void addMechanismTypes() {
+        mechanismTypes = new ArrayList<>(Arrays.asList("Converter",
+                "Cartridge",
+                "Piston",
+                "Vacuum",
+                "Eyedropper",
+                "Other"));
+    }
 
 
 }

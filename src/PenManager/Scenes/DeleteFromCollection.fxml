@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PenManager.DeletingController">
    <children>
-      <Label layoutX="316.0" layoutY="14.0" prefHeight="16.0" prefWidth="219.0" text="Select a Pen to Delete">
+      <Label fx:id="prompt" alignment="CENTER" layoutX="316.0" layoutY="14.0" prefHeight="16.0" prefWidth="219.0" text="Select a Pen to Delete">
          <font>
             <Font size="24.0" />
          </font>
