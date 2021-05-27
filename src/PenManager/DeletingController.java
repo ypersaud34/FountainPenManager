@@ -70,7 +70,7 @@ public class DeletingController implements Initializable {
      * and then given to the DatabaseManager class for execution.
      * class for execution.
      */
-    public void delete(){
+    public void delete() {
         try {
             DatabaseManager.executeStatement(buildDeleteStatement());
             emptyTable();
@@ -84,7 +84,8 @@ public class DeletingController implements Initializable {
 
     /**
      * Populates the penCollection table. A SELECT * query is executed and performed on the connected database.
-     * @throws SQLException if there is a problem with the database.
+     *
+     * @throws SQLException if there is any database related problem.
      **/
     private void populateTable() throws SQLException {
         ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");

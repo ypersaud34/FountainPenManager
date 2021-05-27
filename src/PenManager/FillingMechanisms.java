@@ -10,8 +10,6 @@ import java.util.Arrays;
  */
 public final class FillingMechanisms {
     /**
-     * Returns an ArrayList containing the most common mechanism types.
-     *
      * @return an ArrayList with common mechanisms.
      */
     public static ArrayList<String> getMechanismTypes() {

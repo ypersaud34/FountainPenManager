@@ -22,6 +22,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * The ViewingController class contains functionality relevant to the 'View Collection' feature window. The corresponding
+ * FXML file is titled "ViewCollection.fxml". The necessary GUI components are injected and then used to
+ * construct a table displaying all current pen records.
+ */
 public class ViewingController implements Initializable {
 
     // The following correspond the relevant table and columns
@@ -55,6 +60,11 @@ public class ViewingController implements Initializable {
         }
     }
 
+    /**
+     * Populates the penCollection table. A SELECT * query is executed and performed on the connected database.
+     *
+     * @throws SQLException if there is any database related problem.
+     **/
     private void populateTable() throws SQLException {
 
         ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
@@ -86,6 +96,11 @@ public class ViewingController implements Initializable {
         DatabaseManager.close();
     }
 
+    /**
+     * Goes back the the main menu.
+     *
+     * @param event Used to load the main menu when the 'Back' button is clicked
+     */
     public void backToMainMenu(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));

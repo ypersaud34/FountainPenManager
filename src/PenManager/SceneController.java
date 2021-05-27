@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Manages most of the functions used to switch between scenes/windows.
+ * The SceneController class contains most of the functionality used to switch between scenes/windows.
  */
 public class SceneController {
 
@@ -113,7 +113,7 @@ public class SceneController {
      *
      * @param event Used to load the editing window when the 'Edit' button is clicked
      */
-    public void changeToEdit(ActionEvent event) {
+    public void changeToEditingScreen(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
