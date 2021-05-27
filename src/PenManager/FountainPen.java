@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 /**
- *
+ * Represents a fountain pen in a users pen collection.
  */
 public class FountainPen {
     private int penID;
@@ -22,7 +22,16 @@ public class FountainPen {
     private LocalDate dateEntered;
 
     /**
+     * Constructs a FountainPen object with a given dateEntered.
      *
+     * @param penID       - represents pen ID number.
+     * @param modelName   - represents the name given by manufacturer.
+     * @param brand       - represents manufacturer.
+     * @param color       - represents primary or body color.
+     * @param price       - represents purchase price.
+     * @param nib         - represents nib type.
+     * @param mechanism   - represents filling mechanism type.
+     * @param dateEntered - represents date entered in collection
      */
     FountainPen(int penID, String modelName, String brand, String color, double price, String nib, String mechanism, LocalDate dateEntered) {
         this.penID = penID;
@@ -33,6 +42,28 @@ public class FountainPen {
         this.nib = nib;
         this.mechanism = mechanism;
         this.dateEntered = dateEntered;
+    }
+
+    /**
+     * Constructs a FountainPen object without a given dateEntered. Used if pen is a new addition.
+     *
+     * @param penID     - represents pen ID number.
+     * @param modelName - represents the name given by manufacturer.
+     * @param brand     - represents manufacturer.
+     * @param color     - represents primary or body color.
+     * @param price     - represents purchase price.
+     * @param nib       - represents nib type.
+     * @param mechanism - represents filling mechanism type.
+     */
+    FountainPen(int penID, String modelName, String brand, String color, double price, String nib, String mechanism) {
+        this.penID = penID;
+        this.modelName = modelName;
+        this.brand = brand;
+        this.color = color;
+        this.price = price;
+        this.nib = nib;
+        this.mechanism = mechanism;
+        this.dateEntered = LocalDate.now();
     }
 
     /**

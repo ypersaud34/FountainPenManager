@@ -13,13 +13,18 @@ import java.io.IOException;
  */
 public class Manager extends Application {
     /**
+     * Runs the application.
      *
+     * @param args - arguments passed to method.
      */
     public static void main(String[] args) {
         launch(args);
     }
+
     /**
      * Loads the main menu.
+     *
+     * @param stage - the stage that contains the application.
      */
     @Override
     public void start(Stage stage) throws IOException {
