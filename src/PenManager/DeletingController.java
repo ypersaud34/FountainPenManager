@@ -57,7 +57,12 @@ public class DeletingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        populateTable();
+        try {
+            populateTable();
+        } catch (SQLException s) {
+            System.out.println("Error: Table Could Not Be Loaded.");
+            s.printStackTrace();
+        }
     }
 
     /**
@@ -65,54 +70,54 @@ public class DeletingController implements Initializable {
      * and then given to the DatabaseManager class for execution.
      * class for execution.
      */
-    public void delete() {
-
-        DatabaseManager.executeStatement(buildDeleteStatement());
-        emptyTable();
-        populateTable();
-        prompt.setText("Pen Deleted!");
-
+    public void delete(){
+        try {
+            DatabaseManager.executeStatement(buildDeleteStatement());
+            emptyTable();
+            populateTable();
+            prompt.setText("Pen Deleted!");
+        } catch (SQLException s) {
+            System.out.println("Error: Table Could Not Be Reloaded.");
+            s.printStackTrace();
+        }
     }
 
     /**
      * Populates the penCollection table. A SELECT * query is executed and performed on the connected database.
+     * @throws SQLException if there is a problem with the database.
      **/
-    private void populateTable() {
-        try {
-            ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
+    private void populateTable() throws SQLException {
+        ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
 
-            while (pens.next()) {
+        while (pens.next()) {
 
-                FountainPen pen = new FountainPen(
-                        pens.getInt("pen_id"),
-                        pens.getString("model_name"),
-                        pens.getString("brand"),
-                        pens.getString("color"),
-                        pens.getDouble("price"),
-                        pens.getString("nib"),
-                        pens.getString("filling_mechanism"),
-                        pens.getDate("date_entered").toLocalDate());
+            FountainPen pen = new FountainPen(
+                    pens.getInt("pen_id"),
+                    pens.getString("model_name"),
+                    pens.getString("brand"),
+                    pens.getString("color"),
+                    pens.getDouble("price"),
+                    pens.getString("nib"),
+                    pens.getString("filling_mechanism"),
+                    pens.getDate("date_entered").toLocalDate());
 
-                pensToDisplay.add(pen);
+            pensToDisplay.add(pen);
 
-                DatabaseManager.close();
-            }
-
-            penIDColumn.setCellValueFactory(new PropertyValueFactory<>("PenID"));
-            modelNameColumn.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
-            brandColumn.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-            colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
-            priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-            nibColumn.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-            fillingMechanismColumn.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
-            dateEnteredColumn.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
-
-            penCollection.setItems(pensToDisplay);
-        } catch (SQLException s) {
-            System.out.println("Error: Data Could Not Be Read In Properly.");
-            s.printStackTrace();
+            DatabaseManager.close();
         }
+
+        penIDColumn.setCellValueFactory(new PropertyValueFactory<>("PenID"));
+        modelNameColumn.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
+        brandColumn.setCellValueFactory(new PropertyValueFactory<>("Brand"));
+        colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        nibColumn.setCellValueFactory(new PropertyValueFactory<>("Nib"));
+        fillingMechanismColumn.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
+        dateEnteredColumn.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
+
+        penCollection.setItems(pensToDisplay);
     }
+
     /**
      * Removes all elements from the TableView.
      */
@@ -138,9 +143,10 @@ public class DeletingController implements Initializable {
             i.printStackTrace();
         }
     }
+
     /**
      * Builds and returns an DELETE statement using the injected fields. The return value is meant to remove a record
-     * from the database..
+     * from the database.
      *
      * @return an executable DELETE statement.
      */

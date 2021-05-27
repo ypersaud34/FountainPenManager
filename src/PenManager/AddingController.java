@@ -50,11 +50,8 @@ public class AddingController implements Initializable {
     /**
      * Writes a record to the database. An INSERT statement is constructed by calling buildInsertStatement()
      * and then passed to the DatabaseManager class for execution.
-     *
-     * @throws SQLException if any SQL related errors occurs in the DatabaseManager methods or buildInsertStatement()
-     *                      method.
      */
-    public void add() throws SQLException {
+    public void add() {
         try {
             if (allDetailsEntered()) {
                 DatabaseManager.executeStatement(buildInsertStatement());
@@ -65,6 +62,8 @@ public class AddingController implements Initializable {
             }
         } catch (NumberFormatException n) {
             prompt.setText("Invalid Price!");
+        } catch (SQLException s) {
+            System.out.println("Error: Could Not Generate INSERT statement.");
         }
     }
 
@@ -82,7 +81,7 @@ public class AddingController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (IOException i) {
-            System.out.println("Error: Modifying Menu Could Not Be Loaded.");
+            System.out.println("Error: Modifying Menu Could Not Be Loaded. Check File Name.");
             i.printStackTrace();
         }
     }

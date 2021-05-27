@@ -3,24 +3,24 @@ package PenManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//Used to refer to the most common types of filling mechanism.
+/**
+ * The FillingMechanism class is used to keep information on the various types of filling mechanisms. The mechanisms
+ * are stored in an ArrayList and can be accessed without class instantiation. The primary use of this class would be
+ * to populate relevant ChoiceBoxes.
+ */
 public final class FillingMechanisms {
-
-    private static ArrayList<String> mechanismTypes;
-
+    /**
+     * Returns an ArrayList containing the most common mechanism types.
+     *
+     * @return an ArrayList with common mechanisms.
+     */
     public static ArrayList<String> getMechanismTypes() {
-        addMechanismTypes();
-        return mechanismTypes;
-    }
-
-    private static void addMechanismTypes() {
-        mechanismTypes = new ArrayList<>(Arrays.asList("Converter",
+        return new ArrayList<>(Arrays.asList("Converter",
                 "Cartridge",
                 "Piston",
                 "Vacuum",
                 "Eyedropper",
                 "Other"));
     }
-
 
 }

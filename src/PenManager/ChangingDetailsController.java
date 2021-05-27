@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 
 public class ChangingDetailsController implements Initializable {
 
-    //The following correspond the editing text fields
     @FXML
     private TextField nameField;
     @FXML
@@ -36,7 +35,7 @@ public class ChangingDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nibField.getItems().addAll(Nib.getNibTypes());
         fillingMechanismField.getItems().addAll(FillingMechanisms.getMechanismTypes());
-        populateFields(Transfer.getPenToTransfer());
+        populateFields(Transfer.getDataToTransfer());
     }
 
     public void editEntry() {
@@ -67,7 +66,7 @@ public class ChangingDetailsController implements Initializable {
         String nibChange = nibField.getValue();
         String mechanismChange = fillingMechanismField.getValue();
         DatabaseManager.getConnection().close();
-        System.out.println(Transfer.getPenToTransfer().getPenID());
+        System.out.println(Transfer.getDataToTransfer().getPenID());
 
         return "UPDATE pens " +
                 "SET " +
@@ -77,7 +76,7 @@ public class ChangingDetailsController implements Initializable {
                 "price = " + priceChange + ", " +
                 "nib = " + "'" + nibChange + "'" + ", " +
                 "filling_mechanism = " + "'" + mechanismChange + "'" +
-                " WHERE pen_id = " + Transfer.getPenToTransfer().getPenID();
+                " WHERE pen_id = " + Transfer.getDataToTransfer().getPenID();
     }
 
     public void changeToEditingScreen(ActionEvent event) {
