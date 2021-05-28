@@ -55,6 +55,9 @@ public class DeletingController implements Initializable {
     // This list will be used to populate the table.
     ObservableList<FountainPen> pensToDisplay = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the DeletingController.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

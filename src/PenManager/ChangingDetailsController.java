@@ -37,12 +37,16 @@ public class ChangingDetailsController implements Initializable {
     @FXML
     private ChoiceBox<String> fillingMechanismField;
 
+    /**
+     * Initializes the ChangingDetailsController.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nibField.getItems().addAll(Nib.getNibTypes());
         fillingMechanismField.getItems().addAll(FillingMechanisms.getMechanismTypes());
         populateFields(Transfer.getDataToTransfer());
     }
+
     /**
      * Modifies a record in the database. An UPDATE statement is constructed by calling buildUpdateStatement()
      * and then passed to the DatabaseManager class for execution.
@@ -55,8 +59,10 @@ public class ChangingDetailsController implements Initializable {
             s.printStackTrace();
         }
     }
+
     /**
      * Populates the TextFields and ChoiceBoxes using a selected FountainPen object.
+     *
      * @param penToEdit - a FountainPen object selected from the editing screen.
      */
     private void populateFields(FountainPen penToEdit) {
@@ -69,6 +75,7 @@ public class ChangingDetailsController implements Initializable {
         fillingMechanismField.setValue(penToEdit.getMechanism());
 
     }
+
     /**
      * Builds and returns an UPDATE statement using the injected fields. The return value is meant to be used to modify
      * a record in the database.
@@ -97,6 +104,7 @@ public class ChangingDetailsController implements Initializable {
                 "filling_mechanism = " + "'" + mechanismChange + "'" +
                 " WHERE pen_id = " + Transfer.getDataToTransfer().getPenID();
     }
+
     /**
      * Loads a window displaying the current collection from which users can select a pen to edit.
      *

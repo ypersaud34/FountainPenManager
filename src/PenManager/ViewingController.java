@@ -51,6 +51,10 @@ public class ViewingController implements Initializable {
 
     ObservableList<FountainPen> collection = FXCollections.observableArrayList();
 
+
+    /**
+     * Initializes the ViewingController.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

@@ -51,6 +51,9 @@ public class EditingController implements Initializable {
 
     ObservableList<FountainPen> collection = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the EditingController.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

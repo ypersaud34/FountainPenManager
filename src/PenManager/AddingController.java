@@ -41,7 +41,9 @@ public class AddingController implements Initializable {
     @FXML
     private Label prompt;
 
-
+    /**
+     * Initializes the AddingController.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateChoiceBoxes();
