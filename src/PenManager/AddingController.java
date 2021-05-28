@@ -62,7 +62,7 @@ public class AddingController implements Initializable {
             } else {
                 prompt.setText("All Details Required!");
             }
-        } catch (NumberFormatException n) {
+        } catch (IllegalArgumentException e) {
             prompt.setText("Invalid Price!");
         } catch (SQLException s) {
             System.out.println("Error: Could Not Generate INSERT statement.");
@@ -107,18 +107,25 @@ public class AddingController implements Initializable {
         String mechanismInput = fillingMechanismOptions.getValue();
         LocalDate entryDate = LocalDate.now();
 
+        if (Double.isNaN(priceInput) || priceInput < 0) {
 
-        return "INSERT INTO pens " +
-                "(pen_id, model_name, brand, color, price, nib, filling_mechanism, date_entered) "
-                + "VALUES("
-                + id + ",'"
-                + nameInput + "','"
-                + brandInput + "','"
-                + colorInput + "','"
-                + priceInput + "','"
-                + nibInput + "','"
-                + mechanismInput + "','"
-                + entryDate + "')";
+            throw new IllegalArgumentException();
+
+        } else {
+
+            return "INSERT INTO pens " +
+                    "(pen_id, model_name, brand, color, price, nib, filling_mechanism, date_entered) "
+                    + "VALUES("
+                    + id + ",'"
+                    + nameInput + "','"
+                    + brandInput + "','"
+                    + colorInput + "','"
+                    + priceInput + "','"
+                    + nibInput + "','"
+                    + mechanismInput + "','"
+                    + entryDate + "')";
+
+        }
     }
 
     /**
