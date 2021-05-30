@@ -1,24 +1,12 @@
 package PenManager;
 
-import DBConnection.DatabaseManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -27,30 +15,27 @@ import java.util.ResourceBundle;
  * FXML file is titled "ViewCollection.fxml". The necessary GUI components are injected and then used to
  * construct a table displaying all current pen records.
  */
-public class ViewingController implements Initializable {
+public class ViewingController extends SceneController implements Initializable {
 
     // The following correspond the relevant table and columns
     @FXML
-    private TableView<FountainPen> table;
+    private TableView<FountainPen> penCollection;
     @FXML
-    private TableColumn<FountainPen, Integer> penID;
+    private TableColumn<FountainPen, Integer> penIDColumn;
     @FXML
-    private TableColumn<FountainPen, String> modelName;
+    private TableColumn<FountainPen, String> modelNameColumn;
     @FXML
-    private TableColumn<FountainPen, String> brand;
+    private TableColumn<FountainPen, String> brandColumn;
     @FXML
-    private TableColumn<FountainPen, String> color;
+    private TableColumn<FountainPen, String> colorColumn;
     @FXML
-    private TableColumn<FountainPen, Double> price;
+    private TableColumn<FountainPen, Double> priceColumn;
     @FXML
-    private TableColumn<FountainPen, String> nib;
+    private TableColumn<FountainPen, String> nibColumn;
     @FXML
-    private TableColumn<FountainPen, String> fillingMechanism;
+    private TableColumn<FountainPen, String> fillingMechanismColumn;
     @FXML
-    private TableColumn<FountainPen, Date> dateEntered;
-
-    ObservableList<FountainPen> collection = FXCollections.observableArrayList();
-
+    private TableColumn<FountainPen, Date> dateEnteredColumn;
 
     /**
      * Initializes the ViewingController.
@@ -58,63 +43,18 @@ public class ViewingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            populateTable();
+            TableManager.populateTable(penCollection,
+                    penIDColumn,
+                    modelNameColumn,
+                    brandColumn,
+                    colorColumn,
+                    priceColumn,
+                    nibColumn,
+                    fillingMechanismColumn,
+                    dateEnteredColumn);
         } catch (SQLException e) {
+            System.out.println("Error: Table Could Not Be Loaded.");
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Populates the penCollection table. A SELECT * query is executed and performed on the connected database.
-     *
-     * @throws SQLException if there is any database related problem.
-     **/
-    private void populateTable() throws SQLException {
-
-        ResultSet pens = DatabaseManager.getConnection().createStatement().executeQuery("SELECT * FROM pens");
-
-        while (pens.next()) {
-            FountainPen pen = new FountainPen(
-                    pens.getInt("pen_id"),
-                    pens.getString("model_name"),
-                    pens.getString("brand"),
-                    pens.getString("color"),
-                    pens.getDouble("price"),
-                    pens.getString("nib"),
-                    pens.getString("filling_mechanism"),
-                    pens.getDate("date_entered").toLocalDate());
-            collection.add(pen);
-        }
-
-        penID.setCellValueFactory(new PropertyValueFactory<>("PenID"));
-        modelName.setCellValueFactory(new PropertyValueFactory<>("ModelName"));
-        brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-        color.setCellValueFactory(new PropertyValueFactory<>("Color"));
-        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
-        nib.setCellValueFactory(new PropertyValueFactory<>("Nib"));
-        fillingMechanism.setCellValueFactory(new PropertyValueFactory<>("Mechanism"));
-        dateEntered.setCellValueFactory(new PropertyValueFactory<>("DateEntered"));
-
-        table.setItems(collection);
-
-        DatabaseManager.close();
-    }
-
-    /**
-     * Goes back the the main menu.
-     *
-     * @param event Used to load the main menu when the 'Back' button is clicked
-     */
-    public void backToMainMenu(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Scenes/MainMenu.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException i) {
-            System.out.println("Error: Main Menu Could Not Be Loaded.");
-            i.printStackTrace();
         }
     }
 }

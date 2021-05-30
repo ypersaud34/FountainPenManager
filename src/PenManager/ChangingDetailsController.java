@@ -1,16 +1,11 @@
 package PenManager;
 
 import DBConnection.DatabaseManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -22,7 +17,7 @@ import java.util.ResourceBundle;
  * FountainPen object retrieved from the Transfer class. The user can edit the inputs and write the newly modified record
  * to the database.
  */
-public class ChangingDetailsController implements Initializable {
+public class ChangingDetailsController extends SceneController implements Initializable {
 
     @FXML
     private TextField nameField;
@@ -33,18 +28,20 @@ public class ChangingDetailsController implements Initializable {
     @FXML
     private TextField priceField;
     @FXML
-    private ChoiceBox<String> nibField;
+    private ChoiceBox<String> nibOptions;
     @FXML
-    private ChoiceBox<String> fillingMechanismField;
+    private ChoiceBox<String> fillingMechanismOptions;
+    @FXML
+    private Label prompt;
 
     /**
      * Initializes the ChangingDetailsController.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nibField.getItems().addAll(Nib.getNibTypes());
-        fillingMechanismField.getItems().addAll(FillingMechanisms.getMechanismTypes());
-        populateFields(Transfer.getDataToTransfer());
+        nibOptions.getItems().addAll(Nib.getNibTypes());
+        fillingMechanismOptions.getItems().addAll(FillingMechanisms.getMechanismTypes());
+        populateFields(TableManager.getDataToTransfer());
     }
 
     /**
@@ -53,10 +50,18 @@ public class ChangingDetailsController implements Initializable {
      */
     public void editEntry() {
         try {
-            DatabaseManager.executeStatement(buildUpdateStatement());
+            if (allDetailsEntered()) {
+                DatabaseManager.executeStatement(buildUpdateStatement());
+                prompt.setText("Pen Updated!");
+                DatabaseManager.close();
+            } else {
+                prompt.setText("All Details Required!");
+            }
         } catch (SQLException s) {
             System.out.println("Error: Could Not Modify Record");
             s.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            prompt.setText("Invalid Price!");
         }
     }
 
@@ -71,8 +76,8 @@ public class ChangingDetailsController implements Initializable {
         brandField.setText(penToEdit.getBrand());
         colorField.setText(penToEdit.getColor());
         priceField.setText(Double.toString(penToEdit.getPrice()));
-        nibField.setValue(penToEdit.getNib());
-        fillingMechanismField.setValue(penToEdit.getMechanism());
+        nibOptions.setValue(penToEdit.getNib());
+        fillingMechanismOptions.setValue(penToEdit.getMechanism());
 
     }
 
@@ -89,37 +94,37 @@ public class ChangingDetailsController implements Initializable {
         String brandChange = brandField.getText();
         String colorChange = colorField.getText();
         double priceChange = Double.parseDouble(priceField.getText());
-        String nibChange = nibField.getValue();
-        String mechanismChange = fillingMechanismField.getValue();
+        String nibChange = nibOptions.getValue();
+        String mechanismChange = fillingMechanismOptions.getValue();
         DatabaseManager.getConnection().close();
-        System.out.println(Transfer.getDataToTransfer().getPenID());
 
-        return "UPDATE pens " +
-                "SET " +
-                "model_name = " + "'" + nameChange + "'" + "," +
-                "brand = " + "'" + brandChange + "'" + ", " +
-                "color = " + "'" + colorChange + "'" + ", " +
-                "price = " + priceChange + ", " +
-                "nib = " + "'" + nibChange + "'" + ", " +
-                "filling_mechanism = " + "'" + mechanismChange + "'" +
-                " WHERE pen_id = " + Transfer.getDataToTransfer().getPenID();
+        if (Double.isNaN(priceChange) || priceChange < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            return "UPDATE pens " +
+                    "SET " +
+                    "model_name = " + "'" + nameChange + "'" + "," +
+                    "brand = " + "'" + brandChange + "'" + ", " +
+                    "color = " + "'" + colorChange + "'" + ", " +
+                    "price = " + priceChange + ", " +
+                    "nib = " + "'" + nibChange + "'" + ", " +
+                    "filling_mechanism = " + "'" + mechanismChange + "'" +
+                    " WHERE pen_id = " + TableManager.getDataToTransfer().getPenID();
+        }
     }
 
     /**
-     * Loads a window displaying the current collection from which users can select a pen to edit.
+     * Returns true if there are no empty input fields, false otherwise.
      *
-     * @param event Used to load the editing window when the 'Edit' button is clicked
+     * @return a boolean indicating whether or not all fields have been filled.
      */
-    public void changeToEditingScreen(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private boolean allDetailsEntered() {
+        return !nameField.getText().isEmpty() &&
+                !brandField.getText().isEmpty() &&
+                !colorField.getText().isEmpty() &&
+                !priceField.getText().isEmpty() &&
+                !nibOptions.getValue().isEmpty() &&
+                !fillingMechanismOptions.getValue().isEmpty();
     }
 
 

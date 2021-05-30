@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * The SceneController class contains most of the functionality used to switch between scenes/windows.
+ * The SceneController class contains functionality used to switch between scenes/windows.
  */
 public class SceneController {
 
@@ -66,6 +66,7 @@ public class SceneController {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            TableManager.emptyTable();
         } catch (IOException i) {
             System.out.println("Error: Main Menu Could Not Be Loaded.");
             i.printStackTrace();
@@ -113,7 +114,7 @@ public class SceneController {
      *
      * @param event Used to load the editing window when the 'Edit' button is clicked
      */
-    public void changeToEditingScreen(ActionEvent event) {
+    public void changeToEditCollection(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("Scenes/EditCollection.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -122,6 +123,50 @@ public class SceneController {
             stage.show();
         } catch (IOException i) {
             System.out.println("Error: Editing Menu Could Not Be Loaded.");
+            i.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads the editing form from the 'Edit' scene. This method is assigned to the 'Edit' button and called
+     * when the button is clicked.
+     *
+     * @param event - used to advance to the next scene when the 'Edit' button is clicked.
+     */
+    public void changeToEditInputs(ActionEvent event) {
+        FountainPen penToEdit = TableManager.getTable().getSelectionModel().getSelectedItem();
+        TableManager.setDataToTransfer(penToEdit);
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/EditInputs.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            TableManager.emptyTable();
+
+        } catch (IOException i) {
+            System.out.println("Error: Editing Screen Could Not Be Loaded.");
+            i.printStackTrace();
+        }
+    }
+
+    /**
+     * Reloads the modifying menu from the 'Add' scene. This method is assigned to the 'Back' button and called
+     * when the button is clicked.
+     *
+     * @param event - used to advance to the next scene when the 'Back' button is clicked.
+     */
+    public void backToModifyCollectionMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            TableManager.emptyTable();
+        } catch (IOException i) {
+            System.out.println("Error: Modifying Menu Could Not Be Loaded. Check File Name.");
             i.printStackTrace();
         }
     }

@@ -1,19 +1,12 @@
 package PenManager;
 
 import DBConnection.DatabaseManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -24,7 +17,7 @@ import java.util.ResourceBundle;
  * FXML file is titled "AddToCollection.fxml". The necessary GUI components are injected and then used to
  * construct a INSERT statement which is then executed on the required database.
  */
-public class AddingController implements Initializable {
+public class AddingController extends SceneController implements Initializable {
 
     @FXML
     private TextField nameField;
@@ -66,25 +59,6 @@ public class AddingController implements Initializable {
             prompt.setText("Invalid Price!");
         } catch (SQLException s) {
             System.out.println("Error: Could Not Generate INSERT statement.");
-        }
-    }
-
-    /**
-     * Reloads the modifying menu from the 'Add' scene. This method is assigned to the 'Back' button and called
-     * when the button is clicked.
-     *
-     * @param event - used to advance to the next scene when the 'Back' button is clicked.
-     */
-    public void backToModifyCollectionMenu(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Scenes/ModifyingCollection.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException i) {
-            System.out.println("Error: Modifying Menu Could Not Be Loaded. Check File Name.");
-            i.printStackTrace();
         }
     }
 
