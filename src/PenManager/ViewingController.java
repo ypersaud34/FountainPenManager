@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
  * The ViewingController class contains functionality relevant to the 'View Collection' feature window. The corresponding
  * FXML file is titled "ViewCollection.fxml". The necessary GUI components are injected and then used to
  * construct a table displaying all current pen records.
+ *
  */
 public class ViewingController extends SceneController implements Initializable {
 

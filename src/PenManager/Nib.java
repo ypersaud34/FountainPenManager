@@ -8,7 +8,7 @@ import java.util.Arrays;
  * and can be accessed without class instantiation. The primary use of this class would be to populate
  * relevant ChoiceBoxes.
  */
-public final class Nib {
+public  class Nib {
     /**
      * Returns an ArrayList containing the most common and generic nib types.
      *
